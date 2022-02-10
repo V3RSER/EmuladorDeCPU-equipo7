@@ -82,10 +82,7 @@ public class CPU {
      * @return
      */
     public Boolean saltoCondicional() {
-        int registro = Integer.parseInt(this.registros[0][1]);
-        Boolean condicion;
-
-        if (registro > 0) {
+        if (Integer.parseInt(this.registros[0][1]) > 0) {
             return false;
         } else {
             return true;
@@ -94,9 +91,7 @@ public class CPU {
 
     public void mostrarRegistros() {
         for (int i = 0; i < this.registros.length; i++) {
-            if(Objects.equals(this.registros[i][0], "R20")) {
-                System.out.println(this.registros[i][0] + " : " + this.registros[i][1]);
-            }
+            System.out.println(this.registros[i][0] + " : " + this.registros[i][1]);
         }
     }
 
