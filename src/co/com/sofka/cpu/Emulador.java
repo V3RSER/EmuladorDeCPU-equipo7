@@ -11,8 +11,7 @@ public class Emulador {
                 "ADD R02,R01",
                 "DEC R00",
                 "JMP 3",
-                "MOV R02,R42"
-        };
+                "MOV R02,R42"};
 
         String[][] registros = new String[43][2];
 

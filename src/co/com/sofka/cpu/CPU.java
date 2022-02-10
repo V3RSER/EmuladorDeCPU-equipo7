@@ -17,7 +17,7 @@ public class CPU {
         }
     }
 
-    /**
+    /**MOV
      * @param valorDelRegistro1 Rxx o entero positivo
      * @param valorDelRegistro2 Ryy
      * @return
@@ -26,7 +26,7 @@ public class CPU {
 
     }
 
-    /**
+    /**ADD
      * @param valorDelRegistro1 Rxx
      * @param valorDelRegistro2 Ryy
      * @return
@@ -36,7 +36,7 @@ public class CPU {
 
     }
 
-    /**
+    /**DEC
      * @param valorDelRegistro Rxx
      * @return
      */
@@ -45,7 +45,7 @@ public class CPU {
 
     }
 
-    /**
+    /**INC
      * @param valorDelRegistro Rxx
      * @return
      */
@@ -54,7 +54,7 @@ public class CPU {
 
     }
 
-    /**
+    /**INV
      * @param valorDelRegistro Rxx
      * @return
      */
@@ -64,10 +64,10 @@ public class CPU {
     }
 
     /**
-     *
+     * JMP and JZ
      * @return
      */
-    public Boolean saltoCondicional() {
+    public Boolean saltar(int val) {
         int registro = Integer.parseInt(this.registros[0][1]);
         if (registro) {
             return false;
