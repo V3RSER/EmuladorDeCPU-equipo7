@@ -1,5 +1,7 @@
 package co.com.sofka.cpu;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Objects;
 
 public class app {
@@ -7,46 +9,58 @@ public class app {
         String[] subrutina = {
                 "MOV 5,R00",
                 "MOV 10,R01",
+                "NOP",
                 "JZ 7",
                 "ADD R02,R01",
                 "DEC R00",
                 "JMP 3",
                 "MOV R02,R42"
         };
-
+        String comando;
+        String parametros;
+        String parametro1;
+        String parametro2;
         int numeroInstruccion = 0;
         int numeroEjecucion = 0;
         CPU micpu = new CPU();
-        String comando = subrutina[numeroInstruccion].split(" ")[0];
-        String parametros = subrutina[numeroInstruccion].split(" ")[1];
-        //if parametros = subrutina[numeroInstruccion].split();
 
-        while((Objects.equals(micpu.getRegistros(42), "0")) || (numeroInstruccion <= 1024) || (numeroEjecucion <= 5e4)) {
+        while ((Objects.equals(micpu.getRegistros(42), "0")) || (numeroInstruccion <= 1023) || (numeroEjecucion <= 5e4)) {
+
             comando = subrutina[numeroInstruccion].split(" ")[0];
-            parametros = subrutina[numeroInstruccion].split(" ")[1];
+            parametros = "";
+            parametro1 = "";
+            parametro2 = "";
+            if (subrutina[numeroInstruccion].split(" ").length > 1) {
+                parametros = subrutina[numeroInstruccion].split(" ")[1];
+                parametro1 = parametros.split(",")[0];
+
+                if (parametros.split(",").length > 1) {
+                    parametro2 = parametros.split(",")[1];
+                }
+            }
 
             switch (comando) {
                 case "MOV":
-                    micpu.copiarValor("R01", "R02");
+                    micpu.copiarValor(parametro1, parametro2);
                     break;
                 case "ADD":
-                    micpu.sumarValor("R03", "R04");
+                    micpu.sumarValor(parametro1, parametro2);
                     break;
                 case "DEC":
-                    micpu.decrementarValor("R05");
+                    micpu.decrementarValor(parametro1);
                     break;
                 case "INC":
-                    micpu.incrementarValor("R06");
+                    micpu.incrementarValor(parametro1);
                     break;
                 case "INV":
-                    micpu.invertirRegistro("R07");
+                    micpu.invertirRegistro(parametro1);
                     break;
                 case "JMP":
-                    numeroInstruccion =  - 1;
+                    numeroInstruccion = Integer.parseInt(parametro1) - 1;
                     break;
                 case "JZ":
-                    if(micpu.saltoCondicional()){
-                        numeroInstruccion =  - 1;
+                    if (Boolean.TRUE.equals(micpu.saltoCondicional())) {
+                        numeroInstruccion = Integer.parseInt(parametro1) - 1;
                     }
                     break;
                 case "NOP":
