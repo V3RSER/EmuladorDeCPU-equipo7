@@ -1,7 +1,5 @@
 package co.com.sofka.cpu;
 
-import java.util.Objects;
-
 public class CPU {
 
     private String[][] registros;
@@ -25,7 +23,19 @@ public class CPU {
      * @return
      */
     public void copiarValor(String valorDelRegistro1, String valorDelRegistro2) {
-
+        for (int i = 0; i < this.registros.length; i++) {
+            if (this.registros[i][0].equals(valorDelRegistro2)) {
+                if (valorDelRegistro1.contains("R")) {
+                    for (int k = 0; k < this.registros.length; k++) {
+                        if (this.registros[k][0].equals(valorDelRegistro1)) {
+                            this.registros[i][1] = this.registros[k][1];
+                        }
+                    }
+                } else {
+                    this.registros[i][1] = valorDelRegistro1;
+                }
+            }
+        }
     }
 
     /**
@@ -40,14 +50,13 @@ public class CPU {
         int p = 0;
         for (int i = 0; i < this.registros.length; i++) {
             if (this.registros[i][0].equals(valorDelRegistro1)) {
-                p=i;
+                p = i;
                 valorASumar1 = Float.parseFloat(this.registros[i][1]);
-            }
-            else if (this.registros[i][0].equals(valorDelRegistro2)) {
+            } else if (this.registros[i][0].equals(valorDelRegistro2)) {
                 valorASumar2 = Float.parseFloat(this.registros[i][1]);
             }
         }
-        this.registros[p][1] = Float.toString(valorASumar1+valorASumar2);
+        this.registros[p][1] = Float.toString(valorASumar1 + valorASumar2);
     }
 
     /**
@@ -55,26 +64,22 @@ public class CPU {
      * @return
      */
     public void decrementarValor(String valorDelRegistro) {
-        
-        float valorRegistro = 0; 
+
+        float valorRegistro = 0;
 
         for (int i = 0; i < this.registros.length; i++) {
             if (this.registros[i][0].equals(valorDelRegistro)) {
-                valorRegistro = Float.parseFloat(this.registros[i][1]); 
+                valorRegistro = Float.parseFloat(this.registros[i][1]);
 
-                if (valorRegistro >= 1){
-                    valorRegistro = valorRegistro - 1; 
+                if (valorRegistro >= 1) {
+                    valorRegistro = valorRegistro - 1;
                 } else {
-                    valorRegistro = Math.pow(2,32)-1;
+                    valorRegistro = (float) (Math.pow(2, 32) - 1);
                 }
-        
+
                 this.registros[i][1] = Float.toString(valorRegistro);
             }
-
-
         }
-
-
     }
 
     /**
@@ -83,25 +88,24 @@ public class CPU {
      */
     public void incrementarValor(String valorDelRegistro) {
 
-        float valorRegistro = 0; 
+        float valorRegistro = 0;
+        float numeroMaximo = (float) (Math.pow(2, 32) - 1);
+
 
         for (int i = 0; i < this.registros.length; i++) {
             if (this.registros[i][0].equals(valorDelRegistro)) {
-                valorRegistro = Float.parseFloat(this.registros[i][1]); 
+                valorRegistro = Float.parseFloat(this.registros[i][1]);
 
-                if (valorRegistro => Math.pow(2,32)-1){
+
+                if (valorRegistro >= numeroMaximo) {
                     valorRegistro = 0;
-                } else if (valorRegistro < Math.pow(2,32)-1) {
+                } else if (valorRegistro < Math.pow(2, 32) - 1) {
                     valorRegistro = valorRegistro + 1;
                 }
-        
+
                 this.registros[i][1] = Float.toString(valorRegistro);
             }
-
-
         }
-
-
     }
 
     /**
@@ -114,18 +118,20 @@ public class CPU {
             if (registros[i][0].equals(valorDelRegistro)) {
                 register = Integer.parseInt(this.registros[i][0]);
                 register = ~register;
+
             }
             String result = Integer.toString(register);
-        }return;
+        }
+        return;
 
     }
 
     /**
-     *
      * @return
      */
     public Boolean saltoCondicional() {
-        if (Integer.parseInt(this.registros[0][1]) > 0) {
+
+        if (Float.parseFloat(this.registros[0][1]) > 0) {
             return false;
         } else {
             return true;

@@ -9,13 +9,17 @@ public class app {
         String[] subrutina = {
                 "MOV 5,R00",
                 "MOV 10,R01",
-                "NOP",
                 "JZ 7",
                 "ADD R02,R01",
                 "DEC R00",
                 "JMP 3",
                 "MOV R02,R42"
         };
+        System.out.println("El resultado es: " + emulacion(subrutina));
+    }
+
+    public static String emulacion(String[] subrutina) {
+
         String comando;
         String parametros;
         String parametro1;
@@ -24,7 +28,7 @@ public class app {
         int numeroEjecucion = 0;
         CPU micpu = new CPU();
 
-        while ((Objects.equals(micpu.getRegistros(42), "0")) || (numeroInstruccion <= 1023) || (numeroEjecucion <= 5e4)) {
+        while ((Objects.equals(micpu.getRegistros(42), "0")) || (numeroInstruccion >= 1023) || (numeroEjecucion >= 5e4)) {
 
             comando = subrutina[numeroInstruccion].split(" ")[0];
             parametros = "";
@@ -56,11 +60,11 @@ public class app {
                     micpu.invertirRegistro(parametro1);
                     break;
                 case "JMP":
-                    numeroInstruccion = Integer.parseInt(parametro1) - 1;
+                    numeroInstruccion = Integer.parseInt(parametro1) - 2;
                     break;
                 case "JZ":
                     if (Boolean.TRUE.equals(micpu.saltoCondicional())) {
-                        numeroInstruccion = Integer.parseInt(parametro1) - 1;
+                        numeroInstruccion = Integer.parseInt(parametro1) - 2;
                     }
                     break;
                 case "NOP":
@@ -69,5 +73,11 @@ public class app {
             numeroInstruccion++;
             numeroEjecucion++;
         }
+
+        //micpu.mostrarRegistros();
+
+        return micpu.getRegistros(42);
     }
 }
+
+
