@@ -73,7 +73,14 @@ public class CPU {
      * @return
      */
     public void invertirRegistro(String valorDelRegistro) {
-
+        for (int i = 0; i < registros.length; i++) {
+            int register = 0;
+            if (registros[i][0].equals(valorDelRegistro)) {
+                register = Integer.parseInt(this.registros[i][0]);
+                register = ~register;
+            }
+            String result = Integer.toString(register);
+        }return;
 
     }
 
