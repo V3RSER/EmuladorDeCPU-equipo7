@@ -55,6 +55,24 @@ public class CPU {
      * @return
      */
     public void decrementarValor(String valorDelRegistro) {
+        
+        float valorRegistro = 0; 
+
+        for (int i = 0; i < this.registros.length; i++) {
+            if (this.registros[i][0].equals(valorDelRegistro)) {
+                valorRegistro = Float.parseFloat(this.registros[i][1]); 
+
+                if (valorRegistro >= 1){
+                    valorRegistro = valorRegistro - 1; 
+                } else {
+                    valorRegistro = Math.pow(2,32)-1;
+                }
+        
+                this.registros[i][1] = Float.toString(valorRegistro);
+            }
+
+
+        }
 
 
     }
@@ -64,6 +82,24 @@ public class CPU {
      * @return
      */
     public void incrementarValor(String valorDelRegistro) {
+
+        float valorRegistro = 0; 
+
+        for (int i = 0; i < this.registros.length; i++) {
+            if (this.registros[i][0].equals(valorDelRegistro)) {
+                valorRegistro = Float.parseFloat(this.registros[i][1]); 
+
+                if (valorRegistro => Math.pow(2,32)-1){
+                    valorRegistro = 0;
+                } else if (valorRegistro < Math.pow(2,32)-1) {
+                    valorRegistro = valorRegistro + 1;
+                }
+        
+                this.registros[i][1] = Float.toString(valorRegistro);
+            }
+
+
+        }
 
 
     }
