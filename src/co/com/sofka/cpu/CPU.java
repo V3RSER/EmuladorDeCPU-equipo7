@@ -4,9 +4,11 @@ import java.util.Objects;
 
 public class CPU {
 
-    private String[][] registros = new String[43][2];
+    private String[][] registros;
 
     public CPU() {
+        this.registros = new String[43][2];
+
         for (int i = 0; i < this.registros.length; i++) {
             if (i < 10) {
                 this.registros[i][0] = "R0" + i;
@@ -69,10 +71,13 @@ public class CPU {
      */
     public Boolean saltoCondicional() {
         int registro = Integer.parseInt(this.registros[0][1]);
-        if (registro) {
+        Boolean condicion;
+
+        if (registro > 0) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
     public void mostrarRegistros() {
