@@ -35,7 +35,19 @@ public class CPU {
      */
     public void sumarValor(String valorDelRegistro1, String valorDelRegistro2) {
 
-
+        float valorASumar1 = 0;
+        float valorASumar2 = 0;
+        int p = 0;
+        for (int i = 0; i < this.registros.length; i++) {
+            if (this.registros[i][0].equals(valorDelRegistro1)) {
+                p=i;
+                valorASumar1 = Float.parseFloat(this.registros[i][1]);
+            }
+            else if (this.registros[i][0].equals(valorDelRegistro2)) {
+                valorASumar2 = Float.parseFloat(this.registros[i][1]);
+            }
+        }
+        this.registros[p][1] = Float.toString(valorASumar1+valorASumar2);
     }
 
     /**
